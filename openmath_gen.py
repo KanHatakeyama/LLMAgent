@@ -40,7 +40,7 @@ print(a+b)
 """
 
 # %%
-batch_size = 100
+batch_size = 300
 idx = 0
 
 
@@ -72,7 +72,7 @@ for j in tqdm(range(int(len(ds)/batch_size))):
         prompts,
         sampling_params=SamplingParams(
             temperature=0.1,
-            max_tokens=2048,
+            max_tokens=1024,
             repetition_penalty=1.2,
         )
     )
