@@ -7,17 +7,24 @@ def parse_record(record):
     problem = record["question_ja"]
     text_ans = record["generated_solution_ja"]
 
-    # 答えは boxed {123}の形式
-    ans_number_pos1 = text_ans.rfind("Boxed {")
-    ans_number_pos1_ = text_ans.rfind("boxed {")
-    ans_number_pos1 = max(ans_number_pos1, ans_number_pos1_)
-    ans_number_pos2 = text_ans.rfind("}")
-    ans_number = text_ans[ans_number_pos1+7:ans_number_pos2]
+    try:
+        # 答えは boxed {123}の形式
+        ans_number_pos1 = text_ans.rfind("Boxed {")
+        ans_number_pos1_ = text_ans.rfind("boxed {")
+        ans_number_pos1 = max(ans_number_pos1, ans_number_pos1_)
+        ans_number_pos2 = text_ans.rfind("}")
+        ans_number = text_ans[ans_number_pos1+7:ans_number_pos2]
+    except:
+        problem = ""
+        ans_number = ""
     return problem, ans_number
 
 
 def eval_answer(code_block, answer, verbose=False):
-    output = exec_command(code_block)
+    try:
+        output = exec_command(code_block)
+    except:
+        return False
 
     if verbose:
         print("answer: ", answer)
