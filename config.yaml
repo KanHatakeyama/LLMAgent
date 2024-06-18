@@ -1,0 +1,90 @@
+ #add server info
+#- name: hatakeyama-llm-team/Tanuki-8B-Instruct
+#  PORT: 8000
+#  max-model-len: 4000
+#  gpu-memory-utilization: 0.2
+#  GPU_ID: 0
+#  template1 : "以下は、タスクを説明する指示と、文脈のある入力の組み合わせです。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
+#  template2 : "\n\n### 応答:\n"
+#  max_tokens: 2000
+
+- name: microsoft/Phi-3-medium-128k-instruct
+  PORT: 8001
+  max-model-len: 4000
+  gpu-memory-utilization: 0.4
+  #gpu-memory-utilization: 1.0
+  GPU_ID: 1
+  template1 : "<|user|>\n"
+  template2 : "<|end|>\n<|assistant|>"
+  max_tokens: 2000
+
+#- name: Qwen/Qwen2-57B-A14B-Instruct
+#  PORT: 8003
+#  model: Qwen/Qwen2-57B-A14B-Instruct
+#  max-model-len: 4000
+#  max_tokens: 2000
+#  GPU_ID: 1,2
+#  tensor-parallel-size: 2
+#  template1 : "<|im_start|>あなたは有用なアシスタントです。次の質問に日本語で回答してください。<|im_end|>\n<|im_start|>user\n"
+#  template2 : "<|im_end|><|im_start|>assistant\n"
+
+
+#- name: Rakuten/RakutenAI-7B-chat
+#  PORT: 8002
+#  model: Rakuten/RakutenAI-7B-chat
+#  max-model-len: 4000
+#  gpu-memory-utilization: 0.2
+#  max_tokens: 2000
+#  GPU_ID: 2
+#  template1 : "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: ASSISTANT:"
+#  template2 : "ASSISTANT:"
+
+#- name: Qwen/Qwen2-7B-Instruct
+#  PORT: 8003
+#  model: Qwen/Qwen2-7B-Instruct
+#  max-model-len: 4000
+#  max_tokens: 2000
+#  GPU_ID: 5
+#  template1 : "<|im_start|>あなたは有用なアシスタントです。次の質問に日本語で回答してください。<|im_end|>\n<|im_start|>user\n"
+#  template2 : "<|im_end|><|im_start|>assistant\n"
+
+
+#- name: karakuri-ai/karakuri-lm-8x7b-chat-v0.1
+#  PORT: 8010
+#  model: karakuri-ai/karakuri-lm-8x7b-chat-v0.1
+#  max-model-len: 4000
+#  max_tokens: 2000
+#  GPU_ID: 3,4
+#  tensor-parallel-size: 2
+#  template1 : "<s>[INST]"
+#  template2 : "[/INST]"
+
+#mixtral 8x22bの5bitモデル
+#GGUFで起動する。
+#python3 -m llama_cpp.server --model /home/hatakeyama/python/ChatServer/model/Mixtral-8x22B-Instruct-v0.1.Q5_K_M-00001-of-00004.gguf --port 8011 --n_gpu_layers 300
+#- name: models--mistralai--Mixtral-8x22B-Instruct-v0.1
+#  PORT: 8011
+#  model: models--mistralai--Mixtral-8x22B-Instruct-v0.1
+#  max-model-len: 4000
+#  max_tokens: 2000
+#  GPU_ID: 6,7
+#  template1 : "<s>[INST]日本語で回答しなさい。特に指示がない場合、日本語のみで回答しなさい。"
+#  template2 : "[/INST]"
+
+
+
+
+#templateが間違っているのか、うまく動かない
+#- name: llm-jp/llm-jp-13b-instruct-full-ac_001_16x-dolly-ichikara_004_001_single-oasst-oasst2-v2.0
+#  PORT: 8004
+#  max-model-len: 4000
+#  gpu-memory-utilization: 0.4
+#  GPU_ID: 2
+#  #template1 : "### 指示:\n以下は、タスクを説明する指示です。要求を適切に満たす応答を書きなさい。"
+#  #template1 : "### 指示:\n"
+#  template1 : "<s|LLM-jp>以下は、タスクを説明する指示です。要求を適切に満たす応答を書きなさい。\n\n### 指示:\n"
+#  #template1 : "<s|LLM-jp>"
+#  template2 : "\n\n### 応答:\n"
+#  #template2 : ""
+#  #template2 : ""
+#  max_tokens: 2000
