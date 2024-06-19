@@ -73,7 +73,7 @@ for j in tqdm(range(int(len(ds)/batch_size))):
         sampling_params=SamplingParams(
             temperature=0.1,
             max_tokens=1024,
-            repetition_penalty=1.2,
+            repetition_penalty=1.1,
         )
     )
 

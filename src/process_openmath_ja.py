@@ -1,3 +1,4 @@
+import signal
 import io
 import contextlib
 
@@ -51,17 +52,36 @@ def eval_answer(code_block, answer, verbose=False):
     return False
 
 
-def exec_command(code_block):
+class TimeoutException(Exception):
+    pass
+
+
+def timeout_handler(signum, frame):
+    raise TimeoutException("Execution timed out")
+
+
+def exec_command(code_block, timeout=1):
+    # Set the timeout handler
+    signal.signal(signal.SIGALRM, timeout_handler)
+    # Start the timer
+    signal.alarm(timeout)
+
     # Create a string buffer to capture the output
     str_buffer = io.StringIO()
     # Redirect stdout to the string buffer
     with contextlib.redirect_stdout(str_buffer):
         try:
             exec(code_block)
+        except TimeoutException:
+            return "Execution timed out"
         except Exception as e:
-            print(f"Error executing Code Block {i}: {e}")
+            return f"Error executing code block: {e}"
+        finally:
+            # Disable the alarm
+            signal.alarm(0)
+
     # Get the output from the string buffer
-    output = (str_buffer.getvalue())
+    output = str_buffer.getvalue()
     str_buffer.close()
 
     return output.strip()
