@@ -20,13 +20,12 @@ ds = ds.shuffle()
 
 # %%
 model_name = "microsoft/Phi-3-medium-128k-instruct"
-
+model_name = "karakuri-ai/karakuri-lm-8x7b-chat-v0.1"
 llm = LLM(model=model_name, trust_remote_code=True,
-          max_model_len=20000
+          max_model_len=20000, tensor_parallel_size=2,
           )
 
 # %%
-model_name = "microsoft/Phi-3-medium-128k-instruct"
 pre_command = """次の問題を解きなさい｡出力事項は以下のとおりである｡
 #解説: 問題を解くための基本的な考え方を日本語で出力する｡
 #Python: 計算プログラム｡以下の例を参考に､出力形式を守ること｡
@@ -58,14 +57,11 @@ for j in tqdm(range(int(len(ds)/batch_size))):
         question, answer = parse_record(record)
         answer_list.append(answer)
         question_list.append(question)
-        problem_id = record["index"]
         idx_list.append(idx)
 
         # promptの生成
         ja_text = pre_command+question
-        prompt = f"""<|user|>
-{ja_text}<|end|>
-<|assistant|>"""
+        prompt = f"""<s>[INST]{ja_text}[/INST]"""
         prompts.append(prompt)
 
     # 回答の生成
