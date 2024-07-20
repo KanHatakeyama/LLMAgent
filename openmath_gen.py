@@ -26,7 +26,6 @@ llm = LLM(model=model_name, trust_remote_code=True,
           )
 
 # %%
-model_name = "microsoft/Phi-3-medium-128k-instruct"
 pre_command = """次の問題を解きなさい｡出力事項は以下のとおりである｡
 #解説: 問題を解くための基本的な考え方を日本語で出力する｡
 #Python: 計算プログラム｡以下の例を参考に､出力形式を守ること｡
